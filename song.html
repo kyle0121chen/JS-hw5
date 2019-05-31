@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!-- saved from url=(0037)http://140.113.2.218/karaoke/song.php -->
+<html>
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+	<title>Song Player</title>
+	<link href="./Song Player_files/song.css" rel="stylesheet" type="text/css">
+	<script>
+	function btnPlay(mp3filename) {
+	   au = document.getElementById("mp3play");
+	   au.src = mp3filename;
+	   au.volume = .5;
+	   au.play();
+	}
+	</script>
+</head>
+<body>
+	<h2>Song Player</h2>
+	<form action="http://140.113.2.218/karaoke/songIns.php" enctype="multipart/form-data" method="post"></form>
+	<table>
+		<tbody>
+			<tr>
+				<th>順序</th>
+				<th>歌名</th>
+				<th>檔名</th>
+				<th>action</th>
+			</tr>
+			{{content}}
+			<tr>
+				<form action="/songInsert" method="post" enctype="multipart/form-data">
+					<td>&nbsp;</td>
+					<td>
+						<input type="text" name="songName">
+					</td>
+					<td>
+						<input type="file" name="songFile">
+					</td>
+					<td>
+						<input type="submit" name="addSong">
+					</td>
+				</form>
+			</tr>
+			<!--
+			<tr>
+				<td>1</td>
+				<td>你像個孩子</td>
+				<td>15380.avi</td>
+				<td><input onclick="okPlay(&#39;15380.avi&#39;)" type="button" value="播放"><input onclick="location.href=&#39;songDel.php?line=0&#39;" type="button" value="刪除"></td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>我有話要說</td>
+				<td>15381.avi</td>
+				<td><input onclick="okPlay(&#39;15381.avi&#39;)" type="button" value="播放"><input onclick="location.href=&#39;songDel.php?line=1&#39;" type="button" value="刪除"></td>
+			</tr>
+			<tr>
+				<td>3</td>
+				<td>西貝流士小提琴協奏曲</td>
+				<td>cls023.mp3</td>
+				<td><input onclick="okPlay(&#39;cls023.mp3&#39;)" type="button" value="播放"><input onclick="location.href=&#39;songDel.php?line=2&#39;" type="button" value="刪除"></td>
+			</tr>
+			<tr>
+				<td>4</td>
+				<td>浪人情歌</td>
+				<td>伍佰-02-浪人情歌.MP3</td>
+				<td><input onclick="okPlay(&#39;伍佰-02-浪人情歌.MP3&#39;)" type="button" value="播放"><input onclick="location.href=&#39;songDel.php?line=3&#39;" type="button" value="刪除"></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td><input name="songName" type="text"></td>
+				<td>檔案:<input name="songFile" type="file"></td>
+				<td><input type="submit" value="新增歌曲"></td>
+			</tr>
+			-->
+		</tbody>
+	</table><audio autoplay="autoplay" controls="controls" id="mp3play" src="test.mp3"></audio>
+</body>
+</html>
