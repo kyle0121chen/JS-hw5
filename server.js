@@ -5,6 +5,8 @@ var qs = require("querystring");
 var formidable = require('formidable');
 
 
+var root =".";
+
 var handle = [];
 
 
@@ -19,13 +21,26 @@ module.exports.start = function (port=80){
 		if(request.method == 'POST'){
 			var form = new formidable.IncomingForm();
 			form.parse(request, function(err, query, files) {
-				console.log(files);
-				console.log(files.songFile.path)
-				main(request, response, query, files);
+				if(files.songFile.name == ''){
+					response.writeHead(200, {'Content-Type': 'text/html'});
+					response.write('File not found!');
+					response.end();
+				}
+				else{
+					console.log(files);
+					console.log(files.songFile.path);
+					
+					main(request, response, query, files);
+				}
+				
+				
+				
 			});
 		}
 		else { //GET
+			
 			query = qs.parse(url.parse(request.url).query);
+			console.log("GET!! ");
 			main(request,response,query);
 		}
 	}).listen(port, '0.0.0.0', function(){
@@ -37,8 +52,9 @@ function main(request, response, query, files){
 	console.log(query,' MAIN');
 	var pathname = url.parse(request.url).pathname;
 	console.log('pathname = ',pathname);
-	if (typeof(handle[pathname]) == "function"){
-		console.log(handle[pathname]);
+	
+
+	if (typeof(handle[pathname]) == "function" ){
 		handle[pathname](request,response,query,files);//?????}
 	} 
 	else{
