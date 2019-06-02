@@ -7,7 +7,6 @@ var app = require("./songApp.js");	//每個應用程式專用
 //把可能發生的路徑寫一寫
 server.route("/",app.index);
 server.route("/index",app.index);
-//server.route("/play/mp3",app.index);
 server.route("/index.html",app.index);
 server.route("/songInsert",app.songInsert);
 server.route("/songDelete",app.songDelete);

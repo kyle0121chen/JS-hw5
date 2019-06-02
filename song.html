@@ -4,22 +4,19 @@
 <head>
 	<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 	<title>Song Player</title>
-	
+	<link rel="stylesheet" type="text/css" href="./song.css">
 	<script>
 	function btnPlay(mp3filename) {
-	   	au = document.getElementById("mp3play");
-	   	au.src = "./play/"+mp3filename;
-	   	au.volume = .5;
-	   	au.play();
-
-	   
+	   au = document.getElementById("mp3play");
+	   au.src = "./play/"+mp3filename;
+	   au.volume = .5;
+	   au.play();
 	}
-	
 	</script>
 </head>
 <body>
 	<h2>Song Player</h2>
-	<form action="http://140.113.2.218/karaoke/songIns.php" enctype="multipart/form-data" method="post"></form>
+	
 	<table>
 		<tbody>
 			<tr>
@@ -36,10 +33,14 @@
 						<input type="text" name="songName">
 					</td>
 					<td>
-						<input type="file" name="songFile">
+						<label class="butCSS">
+							<input style="display:none;" type="file" name="songFile">
+							上傳歌曲
+						</label>
+						<!--<input type="file" class="butCSS" name="songFile">  -->
 					</td>
 					<td>
-						<input type="submit" name="addSong">
+						<input type="submit" class="butCSS" name="addSong">
 					</td>
 				</form>
 			</tr>
@@ -76,7 +77,6 @@
 			</tr>
 			-->
 		</tbody>
-	</table>
-	<audio autoplay="autoplay" controls="controls" id="mp3play" src="./play/test.mp3" ></audio>
+	</table><audio autoplay="autoplay" controls="controls" id="mp3play" src="test.mp3"></audio>
 </body>
 </html>

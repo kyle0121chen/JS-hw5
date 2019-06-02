@@ -20,7 +20,6 @@ module.exports.songInsert = function(request, response, query, files){
 		var newpath = './play/' + files.songFile.name;
 		fs.rename(oldpath, newpath, function(err) {
 			if (err) throw err;
-			//console.log("Upload successful");
 			fs.appendFileSync(SONGFILE, query["songName"]+","+files.songFile.name+"\n");
 			songRender(response,"Upload successful");
 		});
@@ -34,13 +33,12 @@ module.exports.songDelete = function(request, response, query, files){
 	for (let i=0, count=0; i<lines.length; i++){
 		console.log("lines ==  ",lines);
 		if (lines.length>1){
-			//console.log("count, queryNO == ", count, query["no"]);
 			if (i == query["no"]) {
 				let song = lines[i].split(",");
 				console.log("lines[i] == ",lines[i], " song == ",song, "i == ",i);
 				var del_path= "./play/"+song[1];
 				fs.unlink(del_path, function(err){
-					if (err)	throw err;
+					if (err)	console.log(err);
 					console.log(song[1] + '  deleted!');
 				});
 			}
@@ -74,10 +72,8 @@ function songRender(response, message){
 				+ '<td>' + line[0] + '</td>'
 				+ '<td>' + line[1] + '</td>'
 				+ '<td>'
-				//+ '<input name="btnPlay" type="button" value="播放" mp3filename="' + line[1] + '">'
-				+ '<input name="btnPlay" type="button" value="播放" onclick="btnPlay(\''+ line[1]+ '\')">'
-				//+ '<input type="button" onclick="okPlay(\'' +line[1]+'\')" value="播放">'
-				+ '<a href="/songDelete?no=' + i + ' "> "刪除"</a>'
+				+ '<input name="btnPlay" class="butCSS" type="button" value="播放" onclick="btnPlay(\''+ line[1]+ '\')">'
+				+'<input type ="button" class="butCSS" onclick="javascript:location.href=\'/songDelete?no=' +i + '\'"value="刪除"></input>'
 				+ '</td>'
 				+ '</tr>';	
 		}
