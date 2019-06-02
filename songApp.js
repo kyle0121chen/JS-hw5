@@ -26,7 +26,7 @@ module.exports.songDelete = function(request, response, query, files){
 	var lines = str.split('\n');
 	fd = fs.openSync(SONGFILE, 'w');
 	for (let i=0, count=0; i<lines.length; i++){
-		console.log(lines);
+		console.log("lines ==  ",lines);
 		if (lines.length>1){
 			if (count == query["no"]) {
 				let song = lines.split(",");
