@@ -12,14 +12,20 @@ module.exports.index = function(request, response){
 }
 module.exports.songInsert = function(request, response, query, files){
 
-	var oldpath = files.songFile.path;
-	var newpath = './' + files.songFile.name;
-	fs.rename(oldpath, newpath, function(err) {
-		if (err) throw err;
-		//console.log("Upload successful");
-		fs.appendFileSync(SONGFILE, query["songName"]+","+files.songFile.name+"\n");
-		songRender(response,"Upload successful");
-	});
+	if(files == undefined){
+		songRender(response,"No input file!");
+	}
+	else{
+		var oldpath = files.songFile.path;
+		var newpath = './play/' + files.songFile.name;
+		fs.rename(oldpath, newpath, function(err) {
+			if (err) throw err;
+			//console.log("Upload successful");
+			fs.appendFileSync(SONGFILE, query["songName"]+","+files.songFile.name+"\n");
+			songRender(response,"Upload successful");
+		});
+	}
+	
 }
 module.exports.songDelete = function(request, response, query, files){
 	var str = fs.readFileSync(SONGFILE,'utf8');
@@ -28,16 +34,24 @@ module.exports.songDelete = function(request, response, query, files){
 	for (let i=0, count=0; i<lines.length; i++){
 		console.log("lines ==  ",lines);
 		if (lines.length>1){
-			if (count == query["no"]) {
-				let song = lines.split(",");
-				fs.unlink(song[1], function(err){
+			//console.log("count, queryNO == ", count, query["no"]);
+			if (i == query["no"]) {
+				let song = lines[i].split(",");
+				console.log("lines[i] == ",lines[i], " song == ",song, "i == ",i);
+				var del_path= "./play/"+song[1];
+				fs.unlink(del_path, function(err){
 					if (err)	throw err;
 					console.log(song[1] + '  deleted!');
 				});
 			}
 			else{
+				
+				if(count < lines.length-2){
+					console.log("Count,  i. ===. ", count,i);
+					fs.writeSync(fd, lines[i]+"\n");	
+				}
 				count++;
-				fs.writeSync(fd, lines[i]+"\n");
+				
 			}
 		}
 	}
