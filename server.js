@@ -4,12 +4,8 @@ var fs = require("fs");
 var qs = require("querystring");
 var formidable = require('formidable');
 
-
 var root =".";
-
 var handle = [];
-
-
 
 module.exports.route = function (path, callback){
 	handle[path] = callback;
@@ -21,15 +17,14 @@ module.exports.start = function (port=80){
 		if(request.method == 'POST'){
 			var form = new formidable.IncomingForm();
 			form.parse(request, function(err, query, files) {
-				if(files.songFile.name == ''){
+				if(files.songFile.name == ''){			//處理沒選檔案就按提交
 					response.writeHead(200, {'Content-Type': 'text/html'});
 					response.write('File not found!');
 					response.end();
 				}
 				else{
-					console.log(files);
-					console.log(files.songFile.path);
-					
+					//console.log(files);
+					//console.log(files.songFile.path);
 					main(request, response, query, files);
 				}
 				
